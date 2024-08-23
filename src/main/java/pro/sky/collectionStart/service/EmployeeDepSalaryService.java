@@ -15,10 +15,9 @@ public class EmployeeDepSalaryService {
         this.employeeService = employeeService;
     }
 
-    public List<Employee> getEmployees() {
+    public Map<Integer, List<Employee>> getEmployees() {
         return employeeService.getMap().values().stream()
-                .sorted(Comparator.comparing(Employee::getDepartment))
-                .collect(Collectors.toList());
+                .collect(Collectors.groupingBy(Employee::getDepartment));
     }
 
     public List<Employee> getEmployeesByDep(int departmentId) {
@@ -32,14 +31,14 @@ public class EmployeeDepSalaryService {
         return employeeService.getMap().values().stream()
                 .filter(e -> e.getDepartment() == departmentId)
                 .max(Comparator.comparing(Employee::getSalary))
-                .orElseThrow(()-> new EmployeeWrongDepartmentNumberException("Уставлен неправильный номер отдела."));
+                .orElseThrow(() -> new EmployeeWrongDepartmentNumberException("Уставлен неправильный номер отдела."));
     }
 
     public Employee getEmployeeDepMinSalary(int departmentId) {
         return employeeService.getMap().values().stream()
                 .filter(e -> e.getDepartment() == departmentId)
                 .min(Comparator.comparing(Employee::getSalary))
-                .orElseThrow(()-> new EmployeeWrongDepartmentNumberException("Уставлен неправильный номер отдела."));
+                .orElseThrow(() -> new EmployeeWrongDepartmentNumberException("Уставлен неправильный номер отдела."));
     }
 
 }

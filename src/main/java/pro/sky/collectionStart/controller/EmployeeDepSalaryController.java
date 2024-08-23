@@ -8,6 +8,7 @@ import pro.sky.collectionStart.model.Employee;
 import pro.sky.collectionStart.service.EmployeeDepSalaryService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -20,7 +21,7 @@ public class EmployeeDepSalaryController {
     }
 
     @GetMapping("all")
-    public List<Employee> getEmployees() {
+    public Map<Integer,List<Employee>> getEmployees() {
         return employeeDepSalaryService.getEmployees();
     }
 
